@@ -20,6 +20,9 @@ public class Position {
 
     private String name;
 
+    @ManyToOne
+    private Establishment establishment;
+
     private String createdBy;
     private Timestamp createdAt;
 

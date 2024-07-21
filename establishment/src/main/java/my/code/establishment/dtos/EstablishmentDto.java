@@ -16,6 +16,8 @@ import java.util.List;
 public class EstablishmentDto {
     private Long id;
 
+    private String logoImage;
+
     private String name;
 
     private String location;

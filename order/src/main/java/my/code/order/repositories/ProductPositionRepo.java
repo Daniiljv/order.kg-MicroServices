@@ -1,6 +1,6 @@
-package my.code.main.repositories;
+package my.code.order.repositories;
 
-import my.code.main.entities.ProductPosition;
+import my.code.order.entities.ProductPosition;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

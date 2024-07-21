@@ -21,13 +21,15 @@ public class Establishment {
     @SequenceGenerator(name = "establishment_seq_generator", sequenceName = "establishment_seq", allocationSize = 1)
     private Long id;
 
+    private String logoImage;
+
     private String name;
 
     private String location;
 
     private Long ownerId;
 
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "establishment")
     private List<Position> positions = new ArrayList<>();
 
     private String createdBy;

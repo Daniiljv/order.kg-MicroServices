@@ -1,10 +1,10 @@
-package my.code.main.services.impl;
+package my.code.order.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import my.code.main.entities.Order;
-import my.code.main.entities.ProductPosition;
-import my.code.main.repositories.OrderRepo;
-import my.code.main.services.OrderService;
+import my.code.order.entities.Order;
+import my.code.order.entities.ProductPosition;
+import my.code.order.repositories.OrderRepo;
+import my.code.order.services.OrderService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

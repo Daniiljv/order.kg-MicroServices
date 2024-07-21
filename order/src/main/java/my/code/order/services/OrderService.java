@@ -1,6 +1,6 @@
-package my.code.main.services;
+package my.code.order.services;
 
-import my.code.main.entities.ProductPosition;
+import my.code.order.entities.ProductPosition;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

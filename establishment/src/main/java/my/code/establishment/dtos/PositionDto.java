@@ -23,6 +23,6 @@ public class PositionDto {
     private String lastModifiedBy;
     private Timestamp lastModifiedAt;
 
-    private Timestamp deletedBy;
+    private String deletedBy;
     private Timestamp deletedAt;
 }

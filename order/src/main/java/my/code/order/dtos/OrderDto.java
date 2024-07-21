@@ -1,25 +1,21 @@
-package my.code.main.dtos;
+package my.code.order.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import my.code.order.entities.ProductPosition;
+
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class ProductPositionDto {
+public class OrderDto {
 
     private Long id;
 
-    private Long orderId;
-
-    private Long establishmentId;
-
-    private Long productId;
-
-    private Long productQuantity;
-
+    private List<ProductPosition> productPositions;
 }

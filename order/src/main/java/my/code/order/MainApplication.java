@@ -1,4 +1,4 @@
-package my.code.main;
+package my.code.order;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

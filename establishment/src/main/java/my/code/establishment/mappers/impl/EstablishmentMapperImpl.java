@@ -1,6 +1,7 @@
 package my.code.establishment.mappers.impl;
 
 import lombok.RequiredArgsConstructor;
+import my.code.common.dtos.CommonEstablishmentDto;
 import my.code.establishment.dtos.EstablishmentDto;
 import my.code.establishment.entities.Establishment;
 import my.code.establishment.mappers.EstablishmentMapper;
@@ -47,10 +48,28 @@ public class EstablishmentMapperImpl implements EstablishmentMapper {
     public EstablishmentDto toDto(Establishment establishment) {
         return  EstablishmentDto.builder()
                 .id(establishment.getId())
+                .logoImage(establishment.getLogoImage())
                 .name(establishment.getName())
                 .location(establishment.getLocation())
                 .ownerId(establishment.getOwnerId())
                 .positions(positionMapper.toDtos(establishment.getPositions()))
+                .createdBy(establishment.getCreatedBy())
+                .createdAt(establishment.getCreatedAt())
+                .lastModifiedBy(establishment.getLastModifiedBy())
+                .lastModifiedAt(establishment.getLastModifiedAt())
+                .deletedBy(establishment.getDeletedBy())
+                .deletedAt(establishment.getDeletedAt())
+                .build();
+    }
+
+    @Override
+    public CommonEstablishmentDto toCommonEstablishmentDto(Establishment establishment) {
+        return  CommonEstablishmentDto.builder()
+                .id(establishment.getId())
+                .name(establishment.getName())
+                .location(establishment.getLocation())
+                .ownerId(establishment.getOwnerId())
+                .positions(positionMapper.toCommonPositionsDto(establishment.getPositions()))
                 .createdBy(establishment.getCreatedBy())
                 .createdAt(establishment.getCreatedAt())
                 .lastModifiedBy(establishment.getLastModifiedBy())

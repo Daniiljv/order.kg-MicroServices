@@ -11,8 +11,8 @@
     <groupId>my.code</groupId>
     <artifactId>order</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>main</name>
-    <description>main</description>
+    <name>order</name>
+    <description>order</description>
     <url/>
     <licenses>
         <license/>
@@ -31,6 +31,12 @@
         <spring-cloud.version>2023.0.2</spring-cloud.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>my.code</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,6 +97,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>1.5.5.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
     </dependencies>

@@ -1,4 +1,4 @@
-package my.code.main.entities;
+package my.code.order.entities;
 
 
 import jakarta.persistence.*;
