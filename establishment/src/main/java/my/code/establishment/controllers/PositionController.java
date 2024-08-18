@@ -1,6 +1,7 @@
 package my.code.establishment.controllers;
 
 import lombok.RequiredArgsConstructor;
+import my.code.establishment.dtos.CreatePositionDto;
 import my.code.establishment.dtos.CustomResponseDto;
 import my.code.establishment.dtos.PositionDto;
 import my.code.establishment.enums.StatusCode;
@@ -17,9 +18,9 @@ public class PositionController {
     private final PositionService positionService;
 
     @PostMapping("/create")
-    public CustomResponseDto<Long> create(@RequestParam String name) {
+    public CustomResponseDto<Long> create(@RequestBody CreatePositionDto createPositionDto) {
         try {
-            return new CustomResponseDto<>(StatusCode.CREATED, positionService.create(name),
+            return new CustomResponseDto<>(StatusCode.CREATED, positionService.create(createPositionDto),
                     "Successful");
         }
         catch (Exception e) {

@@ -13,17 +13,26 @@ import java.util.Optional;
 public interface PositionRepo extends JpaRepository<Position, Long> {
 
     @Query("""
-           SELECT p
-           FROM Position p
-           WHERE p.id = :id
-           AND p.deletedAt IS NULL
-           """)
+            SELECT p
+            FROM Position p
+            WHERE p.id = :id
+            AND p.deletedAt IS NULL
+            """)
     Optional<Position> findActiveById(@Param("id") Long id);
 
     @Query("""
-           SELECT p
-           FROM Position p
-           WHERE p.deletedAt IS NULL
-           """)
+            SELECT p
+            FROM Position p
+            WHERE p.deletedAt IS NULL
+            """)
     Optional<List<Position>> findAllActive();
+
+    @Query("""
+            SELECT p
+            FROM Position p
+            JOIN Establishment e
+            ON p.establishment = e
+            WHERE e.id = :id
+            """)
+    Optional<List<Position>> findAllByEstablishmentId(@Param("id") Long id);
 }

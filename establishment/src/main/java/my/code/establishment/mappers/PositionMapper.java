@@ -15,4 +15,6 @@ public interface PositionMapper {
     PositionDto toDto(Position position);
 
     List<CommonPositionDto> toCommonPositionsDto(List<Position> positions);
+
+    List<CommonPositionDto> fromDtoToCommonPositionsDto(List<PositionDto> positions);
 }

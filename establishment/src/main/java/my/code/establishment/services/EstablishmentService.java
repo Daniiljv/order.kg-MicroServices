@@ -21,4 +21,6 @@ public interface EstablishmentService {
     String rename(Long id, String newName);
 
     String delete(Long id);
+
+    List<Establishment> tempFindAllActive();
 }

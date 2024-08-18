@@ -12,58 +12,103 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
-    @Value("${spring.rabbitmq.queues.queue1.name}")
-    private String queue1;
-
-    @Value("${spring.rabbitmq.queues.queue2.json.name}")
-    private String queue2;
-
     @Value("${spring.rabbitmq.exchange.name}")
-    private String exchange;
+    private String exchangeName;
 
-    @Value("${spring.rabbitmq.queues.queue1.routing-key}")
-    private String routingKey1;
 
-    @Value("${spring.rabbitmq.queues.queue2.json.routing-key}")
-    private String routingKey2;
+    @Value("${spring.rabbitmq.queues.requestEstablishment.name}")
+    private String requestEstablishmentQueueName;
 
-    @Bean
-    public Queue queue1() {
-        return new Queue(queue1);
-    }
+    @Value("${spring.rabbitmq.queues.responseEstablishment.name}")
+    private String responseEstablishmentQueueName;
 
-    @Bean
-    public Queue queue2() {
-        return new Queue(queue2);
-    }
+    @Value("${spring.rabbitmq.queues.responsePositions.name}")
+    private String requestPositionQueueName;
+
+    @Value("${spring.rabbitmq.queues.responsePositions.name}")
+    private String responsePositionQueueName;
+
+
+    @Value("${spring.rabbitmq.queues.requestEstablishment.routing-key}")
+    private String requestEstablishmentRoutingKey;
+
+    @Value("${spring.rabbitmq.queues.responseEstablishment.routing-key}")
+    private String responseEstablishmentRoutingKey;
+
+    @Value("${spring.rabbitmq.queues.requestPositions.routing-key}")
+    private String requestPositionRoutingKey;
+
+    @Value("${spring.rabbitmq.queues.responsePositions.routing-key}")
+    private String responsePositionRoutingKey;
+
 
     @Bean
     public DirectExchange directExchange() {
-        return new DirectExchange(exchange);
+        return new DirectExchange(exchangeName);
+    }
+
+
+    @Bean
+    public Queue requestEstablishmentQueue() {
+        return new Queue(requestEstablishmentQueueName);
     }
 
     @Bean
-    public Binding binding1() {
-        return BindingBuilder
-                .bind(queue1())
-                .to(directExchange())
-                .with(routingKey1);
+    public Queue responseEstablishmentQueue() {
+        return new Queue(responseEstablishmentQueueName);
     }
 
     @Bean
-    public Binding binding2() {
-        return BindingBuilder
-                .bind(queue2())
-                .to(directExchange())
-                .with(routingKey2);
+    public Queue requestPositionQueue() {
+        return new Queue(requestPositionQueueName);
     }
+
+    @Bean
+    public Queue responsePositionQueue() {
+        return new Queue(responsePositionQueueName);
+    }
+
+
+    @Bean
+    public Binding requestEstablishmentBinding() {
+        return BindingBuilder
+                .bind(requestEstablishmentQueue())
+                .to(directExchange())
+                .with(requestEstablishmentRoutingKey);
+    }
+
+    @Bean
+    public Binding responseEstablishmentBinding() {
+        return BindingBuilder
+                .bind(responseEstablishmentQueue())
+                .to(directExchange())
+                .with(responseEstablishmentRoutingKey);
+    }
+
+    @Bean
+    public Binding requestPositionBinding() {
+        return BindingBuilder
+                .bind(requestPositionQueue())
+                .to(directExchange())
+                .with(requestPositionRoutingKey);
+    }
+
+    @Bean
+    public Binding responsePositionBinding() {
+        return BindingBuilder
+                .bind(responsePositionQueue())
+                .to(directExchange())
+                .with(responsePositionRoutingKey);
+    }
+
 
     @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
+
     @Bean
-    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory ){
+    public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jsonMessageConverter());
         return rabbitTemplate;

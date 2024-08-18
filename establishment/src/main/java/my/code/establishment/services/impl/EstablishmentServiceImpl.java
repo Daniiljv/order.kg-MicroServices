@@ -105,4 +105,9 @@ public class EstablishmentServiceImpl implements EstablishmentService {
 
         return "Establishment has been deleted successfully";
     }
+
+    @Override
+    public List<Establishment> tempFindAllActive() {
+        return establishmentRepo.findAll();
+    }
 }

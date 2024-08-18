@@ -2,6 +2,7 @@ package my.code.establishment.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import my.code.establishment.dtos.CreatePositionDto;
 import my.code.establishment.dtos.PositionDto;
 import my.code.establishment.entities.Establishment;
 import my.code.establishment.entities.Position;
@@ -28,12 +29,15 @@ public class PositionServiceImpl implements PositionService {
     private final PositionMapper positionMapper;
 
     @Override
-    public Long create(String name) {
+    public Long create(CreatePositionDto createPositionDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Establishment establishment = establishmentService.findActiveById(createPositionDto.getEstablishmentId());
 
         try {
             Position position = Position.builder()
-                    .name(name)
+                    .name(createPositionDto.getName())
+                    .establishment(establishment)
                     .createdBy(authentication.getName())
                     .createdAt(new Timestamp(System.currentTimeMillis()))
                     .build();

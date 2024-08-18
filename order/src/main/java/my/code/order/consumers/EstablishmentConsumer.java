@@ -10,7 +10,7 @@ public class EstablishmentConsumer {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
 
-    @RabbitListener(queues = "${spring.rabbitmq.queues.queue2.json.name}")
+    @RabbitListener(queues = "${spring.rabbitmq.queues.response1.name}")
     public void getDto(String gottenEstablishment) throws JsonProcessingException {
 
         CommonEstablishmentDto result = objectMapper.readValue(gottenEstablishment, CommonEstablishmentDto.class);
