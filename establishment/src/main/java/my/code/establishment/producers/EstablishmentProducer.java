@@ -3,7 +3,6 @@ package my.code.establishment.producers;
 import lombok.RequiredArgsConstructor;
 
 import my.code.common.dtos.CommonEstablishmentDto;
-import my.code.common.dtos.EstablishmentRequestDto;
 import my.code.common.dtos.EstablishmentResponseDto;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,5 +29,11 @@ public class EstablishmentProducer {
 
     public void sendAllActiveEstablishments(EstablishmentResponseDto<List<CommonEstablishmentDto>> requestDto) {
         rabbitTemplate.convertAndSend(exchange, routingKey, requestDto);
+    }
+
+    public void sendCreatedEstablishmentId(Long establishmentId) {
+        EstablishmentResponseDto<Long> responseDto = new EstablishmentResponseDto<>();
+        responseDto.setData(establishmentId);
+        rabbitTemplate.convertAndSend(exchange, routingKey, responseDto);
     }
 }

@@ -29,14 +29,13 @@ public class EstablishmentServiceImpl implements EstablishmentService {
     @Override
     @Transactional
     public Long create(CreateEstablishmentDto establishmentDto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         try {
+
             Establishment establishmentToCreate = Establishment.builder()
                     .name(establishmentDto.getName())
                     .location(establishmentDto.getLocation())
                     .ownerId(establishmentDto.getOwnerId())
-                    .createdBy(authentication.getName())
                     .createdAt(new Timestamp(System.currentTimeMillis()))
                     .build();
 

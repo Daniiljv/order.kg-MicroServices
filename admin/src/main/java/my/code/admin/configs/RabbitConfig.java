@@ -1,7 +1,9 @@
-package my.code.establishment.config;
+package my.code.admin.configs;
 
-import org.springframework.amqp.core.*;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
@@ -15,31 +17,17 @@ public class RabbitConfig {
     @Value("${spring.rabbitmq.exchange.name}")
     private String exchangeName;
 
-
     @Value("${spring.rabbitmq.queues.requestEstablishment.name}")
     private String requestEstablishmentQueueName;
 
     @Value("${spring.rabbitmq.queues.responseEstablishment.name}")
     private String responseEstablishmentQueueName;
 
-    @Value("${spring.rabbitmq.queues.responsePositions.name}")
-    private String requestPositionQueueName;
-
-    @Value("${spring.rabbitmq.queues.responsePositions.name}")
-    private String responsePositionQueueName;
-
-
     @Value("${spring.rabbitmq.queues.requestEstablishment.routing-key}")
     private String requestEstablishmentRoutingKey;
 
     @Value("${spring.rabbitmq.queues.responseEstablishment.routing-key}")
     private String responseEstablishmentRoutingKey;
-
-    @Value("${spring.rabbitmq.queues.requestPositions.routing-key}")
-    private String requestPositionRoutingKey;
-
-    @Value("${spring.rabbitmq.queues.responsePositions.routing-key}")
-    private String responsePositionRoutingKey;
 
 
     @Value("${spring.rabbitmq.ownerExchange.name}")
@@ -56,6 +44,7 @@ public class RabbitConfig {
 
     @Value("${spring.rabbitmq.ownerQueues.responseOwner.routing-key}")
     private String responseOwnerRoutingKey;
+
 
 
     @Bean
@@ -81,16 +70,6 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Queue requestPositionQueue() {
-        return new Queue(requestPositionQueueName);
-    }
-
-    @Bean
-    public Queue responsePositionQueue() {
-        return new Queue(responsePositionQueueName);
-    }
-
-    @Bean
     public Queue requestOwnerQueue(){
         return new Queue(requestOwnerQueueName);
     }
@@ -111,27 +90,11 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Binding responseEstablishmentBinding() {
+    public Binding responseEstablishmentBinding(){
         return BindingBuilder
                 .bind(responseEstablishmentQueue())
                 .to(directExchange())
                 .with(responseEstablishmentRoutingKey);
-    }
-
-    @Bean
-    public Binding requestPositionBinding() {
-        return BindingBuilder
-                .bind(requestPositionQueue())
-                .to(directExchange())
-                .with(requestPositionRoutingKey);
-    }
-
-    @Bean
-    public Binding responsePositionBinding() {
-        return BindingBuilder
-                .bind(responsePositionQueue())
-                .to(directExchange())
-                .with(responsePositionRoutingKey);
     }
 
     @Bean
@@ -152,16 +115,18 @@ public class RabbitConfig {
 
 
 
+
     @Bean
-    public MessageConverter jsonMessageConverter() {
-        return new Jackson2JsonMessageConverter();
+    public MessageConverter messageConverter() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.USE_LONG_FOR_INTS, true);
+        return new Jackson2JsonMessageConverter(objectMapper);
     }
 
     @Bean
     public AmqpTemplate amqpTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(jsonMessageConverter());
+        rabbitTemplate.setMessageConverter(messageConverter());
         return rabbitTemplate;
     }
-
 }

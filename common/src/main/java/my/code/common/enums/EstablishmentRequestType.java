@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum EstablishmentRequestType {
 
+    CREATE("Create new Establishment"),
     GET_BY_ID("Get establishment by id"),
     GET_ALL_ACTIVE("Get all active establishments");
 

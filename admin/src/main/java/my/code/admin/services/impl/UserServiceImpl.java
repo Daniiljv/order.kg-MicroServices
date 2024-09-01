@@ -1,12 +1,13 @@
-package my.code.order.services.impl;
+package my.code.admin.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import my.code.order.dtos.RegisterUserDto;
-import my.code.order.entities.Role;
-import my.code.order.entities.User;
-import my.code.order.repositories.RoleRepo;
-import my.code.order.repositories.UserRepo;
-import my.code.order.services.UserService;
+
+import my.code.admin.dtos.RegisterUserDto;
+import my.code.admin.entities.Role;
+import my.code.admin.entities.User;
+import my.code.admin.repositories.RoleRepo;
+import my.code.admin.repositories.UserRepo;
+import my.code.admin.services.UserService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
