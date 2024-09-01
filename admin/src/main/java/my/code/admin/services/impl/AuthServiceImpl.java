@@ -59,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
 
         String accessToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000L * 60 * 60 * 24 * 30))
                 .withClaim("roles", user.getAuthorities().stream()
                         .map(GrantedAuthority :: getAuthority)
                         .toList())
